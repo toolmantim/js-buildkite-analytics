@@ -37,9 +37,12 @@ class JestBuildkiteAnalyticsReporter {
       log('success, yay')
     })
     .catch(function (error) {
-      log('error, failed')
+      if (error.response) {
+        log(`Error, response: ${error.response.status} ${error.response.statusText} ${JSON.stringify(error.response.data)}`);
+      } else {
+        log('Error', error.message);
+      }
     })
-
   }
 
   onTestStart(test) {
